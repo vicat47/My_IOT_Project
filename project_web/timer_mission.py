@@ -6,16 +6,18 @@ def change_temp():
     tempture = get_current_tempture()
     time = datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d %H:%M:%S')
     f.write("var current_tempture = ['" + str(tempture[0]) + "','" + str(tempture[1]) + "','" + time + "']")
+    return tempture
     
 
 class my_tempture_looper(object):
     def __init__(self):
         self.__is_running = True
         self.__thread = None
+        self.__sensor_data = []
     
     def start_timer(self):
         while self.__is_running:
-            change_temp()
+            self.__sensor_data = change_temp()
             time.sleep(120)
         
     def start_thread(self):
