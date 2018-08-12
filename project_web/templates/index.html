@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- not chache -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <script src="{{url_for('static', filename='js/util.js')}}"></script>
+    <script src="{{url_for('static', filename='js/data/tempture.js')}}"></script>
+    <title>test</title>
+    <script>
+        function btn_click() {
+            //Always use event.target.id,cause of the 'this' target to the element that now bind.
+            console.log(event.target.id);
+            switch(event.target.id) {
+                case 'open':
+                    ajax("SEND_IR_OPEN");
+                    break;
+                case 'close':
+                    ajax("SEND_IR_CLOSE");
+                    break;
+                case 'sleep':
+                    ajax("SEND_IR_SLEEP");
+                    break;
+                case 'learn':
+                    ajax("LEARN_IR");
+                    break;
+                default:
+                    console.log("NO Button id");
+            }
+        }
+
+        window.onload = function() {
+            tempture = document.getElementById('tempture');
+            humidity = document.getElementById('humidity');
+            time = document.getElementById('update_time');
+
+            tempture.innerText = current_tempture[0];
+            humidity.innerText = current_tempture[1];
+            time.innerText = current_tempture[2];
+        }
+    </script>
+</head>
+<body>
+    <button id="open" onclick="btn_click()" style="width:100%">开</button>
+    <button id="close" onclick="btn_click()" style="width:100%">关</button>
+    <button id="sleep" onclick="btn_click()" style="width:100%">睡眠</button>
+    <!-- <button id="learn" onclick="btn_click()">学</button> -->
+    <p>
+        当前温度：<span id="tempture"></span>,
+        当前湿度：<span id="humidity"></span>,
+        最后更新时间：<span id="update_time"></span>
+    </p>
+</body>
+</html>
