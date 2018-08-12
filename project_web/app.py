@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template
 from my_serial import send_message
 from tempture import get_current_tempture
-from timer_mission import start_timer
+from timer_mission import my_tempture_looper
+import threading
 
 app = Flask(__name__)
 
@@ -22,6 +23,7 @@ def open():
     return res
 
 if __name__ == '__main__':
-    start_timer()
+    my_tempture_changer = my_tempture_looper()
+    my_tempture_changer.start_thread()
     # If want request from other hosts,shoud change param like this.
     app.run(host='0.0.0.0')
