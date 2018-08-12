@@ -34,15 +34,15 @@
             }
         }
 
-        window.onload = function() {
-            tempture = document.getElementById('tempture');
-            humidity = document.getElementById('humidity');
-            time = document.getElementById('update_time');
+        // window.onload = function() {
+        //     tempture = document.getElementById('tempture');
+        //     humidity = document.getElementById('humidity');
+        //     time = document.getElementById('update_time');
 
-            tempture.innerText = current_tempture[0];
-            humidity.innerText = current_tempture[1];
-            time.innerText = current_tempture[2];
-        }
+        //     tempture.innerText = current_tempture[0];
+        //     humidity.innerText = current_tempture[1];
+        //     time.innerText = current_tempture[2];
+        // }
     </script>
 </head>
 <body>
@@ -51,9 +51,9 @@
     <button id="sleep" onclick="btn_click()" style="width:100%">睡眠</button>
     <!-- <button id="learn" onclick="btn_click()">学</button> -->
     <p>
-        当前温度：<span id="tempture"></span>,
-        当前湿度：<span id="humidity"></span>,
-        最后更新时间：<span id="update_time"></span>
+        当前温度：<span id="tempture">{{tempture[0]}}</span>,
+        当前湿度：<span id="humidity">{{tempture[1]}}</span>,
+        最后更新时间：<span id="update_time">{{tempture[2]}}</span>
     </p>
 </body>
 </html>

@@ -2,13 +2,17 @@ from flask import Flask, request, render_template
 from my_serial import send_message
 from tempture import get_current_tempture
 from timer_mission import my_tempture_looper
-import threading
+import threading, datetime
 
 app = Flask(__name__)
+my_tempture_changer = None
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
-    return render_template("index.html")
+    t = [0, 0, 0]
+    if my_tempture_changer != None and my_tempture_changer.get_sensor_data() != []:
+        t = my_tempture_changer.get_sensor_data()
+    return render_template("index.html", tempture=t)
 
 @app.route('/open', methods = ['POST'])
 def open():
