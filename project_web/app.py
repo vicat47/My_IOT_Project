@@ -2,30 +2,47 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, request, render_template
-from my_serial import my_serial_controller
-from tempture import get_current_tempture
-from timer_mission import my_tempture_looper
+from my_aircon import aircon
+from temperature import get_current_temperature
+from timer_mission import my_temperature_looper
 import threading, datetime
 
 app = Flask(__name__)
-my_tempture_changer = None
-serial_controller = my_serial_controller()
+my_temperature_changer = None
+my_aircon = aircon()
 
+
+'''
+t like this
+{
+    "temperature" : 0,
+    "humidity" : 0,
+    "check_data" : 0,
+    "sum_verification" : 0,
+    "time" : "0:00",
+    "is_open" : False,
+    "last_open" : '0:00',
+    "last_close" : '0:00',
+    "is_fixed_temperature" : False
+    "is_sleep_mode" : False
+}
+'''
 @app.route('/', methods = ['GET', 'POST'])
 def home():
-    t = [0, 0, 0, 'None']
-    if my_tempture_changer != None and my_tempture_changer.get_sensor_data() != []:
-        t = my_tempture_changer.get_sensor_data()
-    return render_template("index.html", tempture=t)
+    if my_temperature_changer:
+        t = my_temperature_changer.get_sensor_data()
+    aircon_data = my_aircon.get_aircon_data()
+    t.update(aircon_data)
+    return render_template("index.html", temperature=t)
 
 @app.route('/open', methods = ['POST'])
 def open():
     data = request.get_data().decode('utf-8')
-    res = serial_controller.do_serial_start(data)
+    res = my_aircon.ac_operate(data)
     return res.get("error_msg")
 
 if __name__ == '__main__':
-    my_tempture_changer = my_tempture_looper()
-    my_tempture_changer.start_thread()
+    my_temperature_changer = my_temperature_looper()
+    my_temperature_changer.start_thread()
     # If want request from other hosts,shoud change param like this.
     app.run(host='0.0.0.0')
