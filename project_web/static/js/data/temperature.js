@@ -1,0 +1,1 @@
+var current_temperature = [0, 0, '0:00']
