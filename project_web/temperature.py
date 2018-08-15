@@ -4,7 +4,21 @@
 import RPi.GPIO as GPIO
 import time, my_tools
 
-def get_current_tempture():
+
+'''
+return data like this:
+{
+    "error_code" : error_code,
+    "error_msg" : error_msg,
+    "data" : {
+        "temperature" : temperature,
+        "humidity" : humidity,
+        "check_data" : check,
+        "sum_verification" : tmp
+    }
+}
+'''
+def get_current_temperature():
 
     sensor_data = get_sensor_data()
 
@@ -86,13 +100,20 @@ def data_change(data):
         check += check_bit[i] * 2 ** (7 - i)  
     
     tmp = humidity + humidity_point + temperature + temperature_point       #十进制的数据相加  
+
+    return_data = {
+        "temperature" : temperature,
+        "humidity" : humidity,
+        "check_data" : check,
+        "sum_verification" : tmp
+    }
     
     if check == tmp:                                #数据校验，相等则输出  
         if temperature >= 50 or humidity > 100:
-            return my_tools.get_error_message(10001, 'Not the right tempture', [temperature, humidity])
-        return my_tools.get_error_message(10000, 'Success to get tempture message...', [temperature, humidity])
+            return my_tools.get_error_message(10001, 'Not the right temperature', return_data)
+        return my_tools.get_error_message(10000, 'Success to get temperature message...', return_data)
     else:                                       #错误输出错误信息，和校验数据
-        return my_tools.get_error_message(10002, 'verification error, can not verification', [temperature, humidity, check, tmp])
+        return my_tools.get_error_message(10002, 'verification error, can not verification', return_data)
 
 if __name__ == '__main__':
-    get_current_tempture()
+    get_current_temperature()
