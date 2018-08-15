@@ -1,24 +1,31 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from tempture import get_current_tempture
-import datetime, time, threading
+from temperature import get_current_temperature
+import datetime, time, threading, my_tools
 
 def change_temp():
-    f = open('/home/pi/workspace/python/project_web/static/js/data/tempture.js', 'w')
-    res = get_current_tempture()
-    tempture = res.get('data')
-    time = datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d %H:%M:%S')
-    f.write("var current_tempture = ['" + str(tempture[0]) + "','" + str(tempture[1]) + "','" + time + "']")
-    tempture.append(time)
-    return tempture
+    res = get_current_temperature()
+    temperature = res.get('data')
+    temperature['time'] = my_tools.date_time_format(datetime.datetime.now())
+    return temperature
     
+'''
+self.__sensor_data like this
 
-class my_tempture_looper(object):
+{
+    "time" : "2018-08-16 00:55:01"
+    "temperature" : temperature,
+    "humidity" : humidity,
+    "check_data" : check,
+    "sum_verification" : tmp
+}
+'''
+class my_temperature_looper(object):
     def __init__(self):
         self.__is_running = True
         self.__thread = None
-        self.__sensor_data = []
+        self.__sensor_data = {}
     
     def start_timer(self):
         self.__is_running = True
