@@ -10,7 +10,7 @@
     <meta http-equiv="Expires" content="0" />
 
     <script src="{{url_for('static', filename='js/util.js')}}"></script>
-    <script src="{{url_for('static', filename='js/data/tempture.js')}}"></script>
+    <script src="{{url_for('static', filename='js/data/temperature.js')}}"></script>
     <title>test</title>
     <script>
         function btn_click() {
@@ -29,8 +29,8 @@
                 case 'learn':
                     ajax("LEARN_IR");
                     break;
-                case 'set_tempture':
-                    ajax("SET_TEMPTURE");
+                case 'set_temperature':
+                    ajax("SET_TEMPERATURE");
                     break;
                 default:
                     console.log("NO Button id");
@@ -38,29 +38,53 @@
         }
 
         // window.onload = function() {
-        //     tempture = document.getElementById('tempture');
+        //     temperature = document.getElementById('temperature');
         //     humidity = document.getElementById('humidity');
         //     time = document.getElementById('update_time');
 
-        //     tempture.innerText = current_tempture[0];
-        //     humidity.innerText = current_tempture[1];
-        //     time.innerText = current_tempture[2];
+        //     temperature.innerText = current_temperature[0];
+        //     humidity.innerText = current_temperature[1];
+        //     time.innerText = current_temperature[2];
         // }
     </script>
 </head>
 <body>
+    <p>
+        <table>
+            <tr>
+                <th colspan="2">空调当前状态</th>
+            </tr>
+            <tr>
+                <td>是否开启</td>
+                <td>{{temperature.is_open}}</td>
+            </tr>
+            <tr>
+                <td>上次开启时间</td>
+                <td>{{temperature.last_open}}</td>
+            </tr>
+            <tr>
+                <td>上次关闭时间</td>
+                <td>{{temperature.last_close}}</td>
+            </tr>
+            <tr>
+                <td>睡眠模式?</td>
+                <td>{{temperature.is_sleep_mode}}</td>
+            </tr>
+            <tr>
+                <td>定温了么?</td>
+                <td>{{temperature.is_fixed_temperature}}</td>
+            </tr>
+        </table>
+    </p>
     <button id="open" onclick="btn_click()" style="width:100%">开</button>
     <button id="close" onclick="btn_click()" style="width:100%">关</button>
     <button id="sleep" onclick="btn_click()" style="width:100%">睡眠</button>
     <!-- <button id="learn" onclick="btn_click()">学</button> -->
     <p>
-        当前温度：<span id="tempture">{{tempture[0]}}</span>,
-        当前湿度：<span id="humidity">{{tempture[1]}}</span>,
-        最后更新时间：<span id="update_time">{{tempture[2]}}</span>
+        当前温度：<span id="temperature">{{temperature.temperature}}</span>,
+        当前湿度：<span id="humidity">{{temperature.humidity}}</span>,
+        最后更新时间：<span id="update_time">{{temperature.time}}</span>
     </p>
-    <p>
-        是否定温：<span>{{tempture[3]}}</span>
-    </p>
-    <button id="set_tempture" onclick="btn_click()" style="width: 100%">定温</button>
+    <button id="set_temperature" onclick="btn_click()" style="width: 100%">定温</button>
 </body>
 </html>
