@@ -1,4 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import RPi.GPIO as GPIO
 import time
 
@@ -90,6 +92,8 @@ def data_change(data):
     
     if check == tmp:                                #数据校验，相等则输出  
         print("temperature : " + str(temperature) + ", humidity : " + str(humidity))
+        if temperature >= 50 or humidity > 100:
+            return "ERROR"
         return [temperature, humidity]
     else:                                       #错误输出错误信息，和校验数据
         print("ERROR:" + "temperature : " + str(temperature) + ", humidity : " + str(humidity) + " check : " + str(check) + " tmp : " + str(tmp))

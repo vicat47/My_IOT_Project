@@ -29,6 +29,9 @@
                 case 'learn':
                     ajax("LEARN_IR");
                     break;
+                case 'set_tempture':
+                    ajax("SET_TEMPTURE");
+                    break;
                 default:
                     console.log("NO Button id");
             }
@@ -55,5 +58,9 @@
         当前湿度：<span id="humidity">{{tempture[1]}}</span>,
         最后更新时间：<span id="update_time">{{tempture[2]}}</span>
     </p>
+    <p>
+        是否定温：<span>{{tempture[3]}}</span>
+    </p>
+    <button id="set_tempture" onclick="btn_click()" style="width: 100%">定温</button>
 </body>
 </html>

@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from tempture import get_current_tempture
 import datetime, time, threading
 

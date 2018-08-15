@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import serial, time, string, binascii, datetime
 
 class my_serial_controller(object):

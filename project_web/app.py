@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from flask import Flask, request, render_template
 from my_serial import my_serial_controller
 from tempture import get_current_tempture
@@ -10,7 +13,7 @@ serial_controller = my_serial_controller()
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
-    t = [0, 0, 0]
+    t = [0, 0, 0, 'None']
     if my_tempture_changer != None and my_tempture_changer.get_sensor_data() != []:
         t = my_tempture_changer.get_sensor_data()
     return render_template("index.html", tempture=t)
