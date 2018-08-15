@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import serial, time, string, binascii, datetime
+import serial, time, string, binascii, datetime, my_tools
 
 class my_serial_controller(object):
 
@@ -29,7 +29,7 @@ class my_serial_controller(object):
         s.write(hex_data)
         r = self.get_message(s)
         s.close()
-        return ['success', str(r)]
+        return my_tools.get_error_message(10000, 'Success to send serial message.',  str(r))
 
     def get_message(self, serial):
         s = serial
@@ -61,12 +61,12 @@ class my_serial_controller(object):
     def do_serial_start(self, message):
         hex_data = self.get_hex_data(message)
         if hex_data == "none":
-            return 'No such data'
+            return my_tools.get_error_message(10011, 'No such serial command.', hex_data)
         time_now = self.verification(message)
         if not self.__can_operate:
-            return "Can't operate.Please wait..."
+            return my_tools.get_error_message(10012, "Can't operate.Please wait...", hex_data)
         res = self.send_message(hex_data)
-        if res[0] == 'success':
+        if res.get('error_code') == 10000:
             if message == "SEND_IR_OPEN" or message == "SEND_IR_SLEEP":
                 self.__last_open = time_now
                 self.__is_open = True
@@ -74,4 +74,4 @@ class my_serial_controller(object):
                 self.__last_close = time_now
                 self.__is_open = False
             self.__last_operate = time_now
-        return res[0]
+        return res

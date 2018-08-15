@@ -6,7 +6,8 @@ import datetime, time, threading
 
 def change_temp():
     f = open('/home/pi/workspace/python/project_web/static/js/data/tempture.js', 'w')
-    tempture = get_current_tempture()
+    res = get_current_tempture()
+    tempture = res.get('data')
     time = datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d %H:%M:%S')
     f.write("var current_tempture = ['" + str(tempture[0]) + "','" + str(tempture[1]) + "','" + time + "']")
     tempture.append(time)
