@@ -6,17 +6,12 @@ import serial, time, string, binascii, datetime, my_tools
 class my_serial_controller(object):
 
     def __init__(self):
-        self.__last_open = None
-        self.__last_close = None
-        self.__is_open = False
         self.__last_operate = None
         self.__can_operate = True
-        self.__send_switcher = {
-            "SEND_IR_OPEN" : 'BB 01 FF',
-            "SEND_IR_CLOSE" : 'BB 02 FF',
-            "SEND_IR_SLEEP" : 'BB 03 FF',
-            "LEARN_IR" : 'AA 01 FF'
-        }
+        self.__hex_mode = True
+
+    def set_hex_mode(self, is_enabled):
+        self.__hex_mode = is_enabled
 
     def open_serial(self):
         ser = serial.Serial('/dev/ttyAMA0', 9600)
@@ -51,27 +46,19 @@ class my_serial_controller(object):
         return time_now
 
 
-    def get_hex_data(self, message):
-        d = self.__send_switcher.get(message, "none")
-        if d != 'none':
-            d = bytes.fromhex(d)
-        return d
+    def get_send_data(self, message):
+        m = message
+        if self.__hex_mode:
+            m = bytes.fromhex(message)
+        return m
 
 
     def do_serial_start(self, message):
-        hex_data = self.get_hex_data(message)
-        if hex_data == "none":
-            return my_tools.get_error_message(10011, 'No such serial command.', hex_data)
+        hex_data = self.get_send_data(message)
         time_now = self.verification(message)
         if not self.__can_operate:
-            return my_tools.get_error_message(10012, "Can't operate.Please wait...", hex_data)
+            return my_tools.get_error_message(10012, "Can't operate the serial.Please wait...", hex_data)
         res = self.send_message(hex_data)
         if res.get('error_code') == 10000:
-            if message == "SEND_IR_OPEN" or message == "SEND_IR_SLEEP":
-                self.__last_open = time_now
-                self.__is_open = True
-            if message == "SEND_IR_CLOSE":
-                self.__last_close = time_now
-                self.__is_open = False
             self.__last_operate = time_now
         return res
