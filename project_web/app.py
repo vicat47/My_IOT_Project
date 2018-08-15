@@ -22,7 +22,7 @@ def home():
 def open():
     data = request.get_data().decode('utf-8')
     res = serial_controller.do_serial_start(data)
-    return res
+    return res.get("error_msg")
 
 if __name__ == '__main__':
     my_tempture_changer = my_tempture_looper()

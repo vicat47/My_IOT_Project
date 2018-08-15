@@ -7,5 +7,5 @@ def get_error_message(error_code, error_msg, data):
         "error_msg" : error_msg,
         "data" : data
     }
-    print(error_msg + str(data))
+    print(str(error_code) + ":" + error_msg + "    " + str(data))
     return res

@@ -8,8 +8,6 @@ def get_current_tempture():
 
     sensor_data = get_sensor_data()
 
-    print("sensor is working.")
-    print(sensor_data)             #输出初始数据高低电平
     while sensor_data.get('error_code') != 10000:
         time.sleep(5)
         sensor_data = get_sensor_data()
