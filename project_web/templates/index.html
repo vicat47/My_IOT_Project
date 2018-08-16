@@ -29,8 +29,8 @@
                 case 'learn':
                     ajax("LEARN_IR");
                     break;
-                case 'set_temperature':
-                    ajax("SET_TEMPERATURE");
+                case 'fixed_temperature':
+                    ajax("FIXED_TEMPERATURE", null, '/fixed_temperature');
                     break;
                 default:
                     console.log("NO Button id");
@@ -85,6 +85,6 @@
         当前湿度：<span id="humidity">{{temperature.humidity}}</span>,
         最后更新时间：<span id="update_time">{{temperature.time}}</span>
     </p>
-    <button id="set_temperature" onclick="btn_click()" style="width: 100%">定温</button>
+    <button id="fixed_temperature" onclick="btn_click()" style="width: 100%">定温</button>
 </body>
 </html>
