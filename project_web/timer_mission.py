@@ -26,11 +26,17 @@ class my_temperature_looper(object):
         self.__is_running = True
         self.__thread = None
         self.__sensor_data = {}
+        self.__aircon = []
+
+    def set_aircon(self, data):
+        self.__aircon = data
     
     def start_timer(self):
         self.__is_running = True
         while self.__is_running:
             self.__sensor_data = change_temp()
+            for aircon in self.__aircon:
+                aircon.ac_fixed_temperature(self.__sensor_data)
             time.sleep(120)
         
     def start_thread(self):
