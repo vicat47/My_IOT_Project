@@ -10,7 +10,8 @@ import datetime, my_tools
 
 class aircon(object):
 
-    def __init__(self):
+    def __init__(self, position):
+        self.position = position
         self.__last_open = None
         self.__last_close = None
         self.__is_open = False
@@ -41,6 +42,24 @@ class aircon(object):
                 self.__is_sleep_mode = False
             return my_tools.get_error_message(10000, "Success to operate aircon", [])
         return res
+
+    def ac_fixed_temperature(self, temperature):
+        m = ''
+        if self.__is_fixed_temperature:
+            t = temperature.get('temperature')
+            if t >= 29 and (not self.__is_open):
+                self.ac_operate("SEND_IR_SLEEP")
+                m = 'Up to fixed temperature 29 and operate ac make it sleep mode'
+            elif t <= 26 and self.__is_open:
+                self.ac_operate("SEND_IR_CLOSE")
+                m = 'Down to fixed temperature 26 and operate ac make it close'
+            return my_tools.get_error_message(10000, m, {})
+
+    def set_fixed_temperature(self):
+        self.__is_fixed_temperature = not self.__is_fixed_temperature
+        if self.__is_fixed_temperature:
+            return 'success to enable fixed temperature'
+        return 'success to disable fixed temperature'
 
     def get_aircon_data(self):
         data = {
