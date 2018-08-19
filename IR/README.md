@@ -39,6 +39,8 @@ wiringPi的pwm函数有如下一条NOTE:
 
 但是我不知道这里的系统模式是什么。。。待日后研究
 
+要实现微秒级的控制，wiringPi提供了delayMicroseconds (unsigned int howLong)方法。
+
 [wiringPi设置频率](http://tieba.baidu.com/p/4753142928)
 
 [wiringPi官方树莓派特有函数](http://wiringpi.com/reference/raspberry-pi-specifics/)
