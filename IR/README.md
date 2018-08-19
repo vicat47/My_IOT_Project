@@ -44,3 +44,8 @@ wiringPi的pwm函数有如下一条NOTE:
 [wiringPi设置频率](http://tieba.baidu.com/p/4753142928)
 
 [wiringPi官方树莓派特有函数](http://wiringpi.com/reference/raspberry-pi-specifics/)
+
+## python 调用C 及 C++
+
+1. 通过编译为DLL调用
+2. 通过如下调用[python调用C/CPP](https://www.jianshu.com/p/cd28e8b0cce1)
