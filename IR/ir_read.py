@@ -1,4 +1,7 @@
+import write_excel
+
 f = open('ac_data', 'r')
+fw = open('data.txt', 'a')
 
 '''
 space 8981
@@ -18,4 +21,11 @@ for line in f.readlines():
         d = []
     line.strip()
 
+
+for index in range(len(res)):
+    if index != 0 and index % 8 == 0:
+        fw.write('\r')
+    fw.write(str(res[index]))
+    fw.write(' ')
+fw.write('\r')
 print(res)

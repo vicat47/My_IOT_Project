@@ -1,4 +1,5 @@
 import xlwt, xlrd
+from xlutils.copy import copy
 
 class xml_writer(object):
     def __init__(self):
@@ -19,7 +20,16 @@ class xml_writer(object):
             xlsfile = url# 打开指定路径中的xls文件
             self.book = xlrd.open_workbook(xlsfile)#得到Excel文件的book对象，实例化对象
             self.sheet = self.book.sheet_by_index(0) # 通过sheet索引获得sheet对象
+            rb = self.book.sheet_by_index(0)
+ 
+            self.book = copy(rb)
+            
+            #通过get_sheet()获取的sheet有write()方法
+            self.sheet = self.book.get_sheet(0)
+            
+            self.book.save('m:\\1.xls')
         self.book = xlwt.Workbook(encoding='utf-8', style_compression=0)
         self.sheet = self.book.add_sheet('test', cell_overwrite_ok=True)
 
     def write_xml_file(self, write_fun):
+        write_fun(self.sheet)
