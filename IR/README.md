@@ -49,6 +49,13 @@ wiringPi的pwm函数有如下一条NOTE:
 
 1. 通过编译为DLL调用
     - https://blog.csdn.net/u012449363/article/details/76690540
-2. 通过如下调用[python调用C/CPP](https://www.jianshu.com/p/cd28e8b0cce1)
+    - https://www.cnblogs.com/lovephysics/p/7237227.html
+2. 通过自定义模块调用
+    - https://blog.csdn.net/manong_wxd/article/details/78734214
+    - [python调用C/CPP](https://www.jianshu.com/p/cd28e8b0cce1)
     - https://blog.csdn.net/fitzzhang/article/details/79212411
     - https://docs.python.org/3/library/ctypes.html
+
+## python 引入自定义模块
+
+https://www.cnblogs.com/master-pokemon/p/6136483.html
