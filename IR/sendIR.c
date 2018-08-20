@@ -10,7 +10,7 @@ int sendTail();
 void sendData();
 
 
-int myPwnSender(input)
+int myPwnSender(int* input)
 {
     setup();
     sendHead();
@@ -19,7 +19,7 @@ int myPwnSender(input)
     return 0;
 }
 
-void sendData(int[] input)
+void sendData(int* input)
 {
     int i;
     for(i = 0; i < 104; i++)
@@ -65,5 +65,5 @@ int setup()
     }
     pinMode(PWMpin, PWM_OUTPUT);
     pwmSetRange(15);
-    return 10000
+    return 10000;
 }
