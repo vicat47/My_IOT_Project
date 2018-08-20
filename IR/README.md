@@ -48,4 +48,7 @@ wiringPi的pwm函数有如下一条NOTE:
 ## python 调用C 及 C++
 
 1. 通过编译为DLL调用
+    - https://blog.csdn.net/u012449363/article/details/76690540
 2. 通过如下调用[python调用C/CPP](https://www.jianshu.com/p/cd28e8b0cce1)
+    - https://blog.csdn.net/fitzzhang/article/details/79212411
+    - https://docs.python.org/3/library/ctypes.html
