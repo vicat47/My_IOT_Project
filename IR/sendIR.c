@@ -1,14 +1,19 @@
 #include <wiringPi.h>
+#include <stdio.h>
 
 const int PWMpin = 1;
-const int dutyRatio1 = 180;
-const int dutyRatio0 = 600;
 
 int setup();
 int sendHead();
 int sendTail();
-void sendData();
+void sendData(int* input);
+int myPwnSender(int* input);
 
+int main(void) 
+{
+    int testData[] = {1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1};
+    myPwnSender(testData);
+}
 
 int myPwnSender(int* input)
 {
@@ -27,15 +32,15 @@ void sendData(int* input)
         switch(input[i])
         {
             case 0:
-                pwmWrite(PWMpin, dutyRatio1);
+                pwmWrite(PWMpin, 180);
                 delayMicroseconds(560);
-                pwmWrite(PWMpin, dutyRatio0);
+                pwmWrite(PWMpin, 600);
                 delayMicroseconds(560);
                 break;
             case 1:
-                pwmWrite(PWMpin, dutyRatio1);
+                pwmWrite(PWMpin, 180);
                 delayMicroseconds(560);
-                pwmWrite(PWMpin, dutyRatio0);
+                pwmWrite(PWMpin, 600);
                 delayMicroseconds(1690);
                 break;
         }
@@ -44,16 +49,16 @@ void sendData(int* input)
 
 int sendHead()
 {
-    pwmWrite(PWMpin, dutyRatio1);
+    pwmWrite(PWMpin, 180);
     delayMicroseconds(9000);
-    pwmWrite(PWMpin, dutyRatio0);
+    pwmWrite(PWMpin, 600);
     delayMicroseconds(4500);
     return 0;
 }
 
 int sendTail()
 {
-    pwmWrite(PWMpin, dutyRatio1);
+    pwmWrite(PWMpin, 180);
     delayMicroseconds(560);
     return 0;
 }

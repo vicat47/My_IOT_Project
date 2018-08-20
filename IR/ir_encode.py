@@ -1,4 +1,5 @@
-import ir_send
+import IR.ir_send as ir_send
+from math import floor
 
 class ir_encoder(object):
     def __init__(self):
@@ -31,7 +32,9 @@ class ir_encoder(object):
         res = []
         res.extend(self._code_format.get('head'))
         temperature = self.data.get('temperature')
-
+        temperature_bin = self.bin_add(self._code_format.get('temperature_bin'), self.data.get("set_temperature") - 16)
+        res.extend(temperature_bin)
+        # 补充。。。。。
         last_tempture = self.data.get('last_temperature')
         if self.data.get('is_open') and temperature != last_tempture:
             if temperature > last_tempture:
@@ -39,13 +42,17 @@ class ir_encoder(object):
             else:
                 self._code_format['removal_verification_bin'] = [1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0]
     
-    def bin_add(arr, num):
-        for i in range(num):
-            arr += 1
-            
-                
+    def bin_add(self, arr, num):
+        arr[0] += num
+        for i in range(len(arr)):
+            if arr[i] >= 2:
+                if i != len(arr) - 1:
+                    arr[i+1] += floor(arr[i] / 2)
+                arr[i] = floor(arr[i] % 2)
+        return arr
 
-    def is_need_carry(arr_of_num):
-        for i in range(len(arr_of_num)):
-            if arr_of_num[i] == 2:
-                arr_of_num[i+1] += 1
+
+if __name__ == '__main__':
+    data = [1, 1, 0, 0, 0, 0, 1, 1,1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
+    ir = ir_encoder()
+    ir.ir_sender.send_waves(data)
