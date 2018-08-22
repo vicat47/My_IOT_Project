@@ -32,15 +32,15 @@ void sendData(int* input)
         switch(input[i])
         {
             case 0:
-                pwmWrite(PWMpin, 180);
+                pwmWrite(PWMpin, 1);
                 delayMicroseconds(560);
-                pwmWrite(PWMpin, 600);
+                pwmWrite (PWMpin, 0);
                 delayMicroseconds(560);
                 break;
             case 1:
-                pwmWrite(PWMpin, 180);
+                pwmWrite(PWMpin, 1);
                 delayMicroseconds(560);
-                pwmWrite(PWMpin, 600);
+                pwmWrite (PWMpin, 0);
                 delayMicroseconds(1690);
                 break;
         }
@@ -49,17 +49,18 @@ void sendData(int* input)
 
 int sendHead()
 {
-    pwmWrite(PWMpin, 180);
+    pwmWrite(PWMpin, 1);
     delayMicroseconds(9000);
-    pwmWrite(PWMpin, 600);
+    pwmWrite (PWMpin, 0);
     delayMicroseconds(4500);
     return 0;
 }
 
 int sendTail()
 {
-    pwmWrite(PWMpin, 180);
+    pwmWrite(PWMpin, 1);
     delayMicroseconds(560);
+    pwmWrite (PWMpin, 0);
     return 0;
 }
 
@@ -69,6 +70,8 @@ int setup()
         return 10001;
     }
     pinMode(PWMpin, PWM_OUTPUT);
-    pwmSetRange(15);
+    pwmSetMode(PWM_MODE_MS);
+    pwmSetRange(3);
+    pwmSetClock(168);
     return 10000;
 }
