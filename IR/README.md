@@ -22,6 +22,9 @@
 开始想的是使用python的gpio模块进行pwm操作，但是。。。由上，只能是。。  
 为了做到微秒级别的时间控制，需要使用c语言进行编写发射模块。。。
 
+- gpio 红外：
+    - https://blog.csdn.net/jscese/article/details/21398961
+
 ### 安装wiringPi
 
 ### 通过GitHub安装
@@ -41,7 +44,9 @@ wiringPi的pwm函数有如下一条NOTE:
 
 要实现微秒级的控制，wiringPi提供了delayMicroseconds (unsigned int howLong)方法。
 
-[wiringPi设置频率](http://tieba.baidu.com/p/4753142928)
+- wiringPi设置频率
+    - [wiringPi设置频率](http://tieba.baidu.com/p/4753142928)
+    - https://raspberrypi.stackexchange.com/questions/4906/control-hardware-pwm-frequency
 
 [wiringPi官方树莓派特有函数](http://wiringpi.com/reference/raspberry-pi-specifics/)
 
