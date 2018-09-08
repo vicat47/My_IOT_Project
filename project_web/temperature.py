@@ -3,8 +3,9 @@
 
 import RPi.GPIO as GPIO
 import time, my_tools
+import DB.insert as insert
 
-
+database = insert.databaseConnection()
 '''
 return data like this:
 {
@@ -26,6 +27,9 @@ def get_current_temperature():
         time.sleep(5)
         sensor_data = get_sensor_data()
     
+    data = sensor_data.get("data")
+    database.insert(data.get("temperature"), data.get("humidity"))
+
     return sensor_data
 
     

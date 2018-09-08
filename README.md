@@ -26,3 +26,8 @@
 |10  |RXD|
 |12  |pwm端口|
 |13  |红外接收口|
+
+## 数据库
+|name|tdatetime|temperature(numeric)|humidity(integer)|
+|:--:|:--:|:--:|:--:|
+|RPi.CPU|now|1|0|
