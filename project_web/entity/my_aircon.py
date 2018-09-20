@@ -6,7 +6,8 @@ This class is the aircon class,be used controll the aircon and save aircon data.
 '''
 
 from my_serial import my_serial_controller
-import datetime, my_tools
+import util.my_tools as my_tools
+import datetime
 
 class aircon(object):
 

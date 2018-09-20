@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import serial, time, string, binascii, datetime, my_tools
+import serial, time, string, binascii, datetime
+import util.my_tools as my_tools
 
 class my_serial_controller(object):
 

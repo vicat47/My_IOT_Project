@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, request, render_template
-from my_aircon import aircon
-from temperature import get_current_temperature
-from timer_mission import my_temperature_looper
+from entity.my_aircon import aircon
+from dao.temperature import get_current_temperature
+from controller.timer_mission import my_temperature_looper
 import threading, datetime
 
 app = Flask(__name__)

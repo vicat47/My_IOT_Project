@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from temperature import get_current_temperature
-import datetime, time, threading, my_tools
+from dao.temperature import get_current_temperature
+import datetime, time, threading
+import util.my_tools as my_tools
 
 def change_temp():
     res = get_current_temperature()

@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import RPi.GPIO as GPIO
-import time, my_tools
-import DB.insert as insert
+import time
+import util.my_tools as my_tools
+import dao.insert as insert
 
 database = insert.databaseConnection()
 '''
