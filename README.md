@@ -1,16 +1,16 @@
 # 项目简介
 
-![img](https://img.shields.io/badge/Language-Python-blue.svg) ![img](https://img.shields.io/badge/release-v0.1.0-green.svg)
+![img](https://img.shields.io/badge/Language-Python-blue.svg) ![img](https://img.shields.io/badge/release-v0.1.0build-green.svg)
 
 该项目原本为本人假期闲来无事搞的一个iot项目，主要是使用树莓派控制家里空调。但是随着时间的推移，越来越多的功能加入了该项目。所以对本项目进行了重构，顺便加入了该README文档。
 
 # 项目功能
 
-该项目的主要功能目前有:
-    - 通过串口发送消息，使用模块控制空调
-    - 通过DHT11模块读写温度，写入温度数据库
-    - 简陋的WEB端控制界面
-    - 通过红外二极管发送红外数据
+该项目的主要功能目前有:  
+- 通过串口发送消息，使用模块控制空调
+- 通过DHT11模块读写温度，写入温度数据库
+- 简陋的WEB端控制界面
+- 通过红外二极管发送红外数据
 
 # 环境依赖
 

@@ -105,3 +105,6 @@ venv.bak/
 
 # office
 ~$*
+
+# vscode
+.vscode

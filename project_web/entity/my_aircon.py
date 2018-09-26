@@ -5,7 +5,7 @@
 This class is the aircon class,be used controll the aircon and save aircon data.
 '''
 
-from my_serial import my_serial_controller
+from dao.my_serial import my_serial_controller
 import util.my_tools as my_tools
 import datetime
 
@@ -62,6 +62,7 @@ class aircon(object):
             return 'success to enable fixed temperature'
         return 'success to disable fixed temperature'
 
+    @property
     def get_aircon_data(self):
         data = {
             "is_open" : self.__is_open,
