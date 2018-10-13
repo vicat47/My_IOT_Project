@@ -44,6 +44,7 @@
 |10  |RXD|
 |12  |pwm端口|
 |13  |红外接收口|
+|16  |红外传感器|
 
 ## 数据库
 |name|tdatetime|temperature(numeric)|humidity(integer)|

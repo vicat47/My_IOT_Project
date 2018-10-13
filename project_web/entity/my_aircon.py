@@ -56,6 +56,7 @@ class aircon(object):
                 m = 'Down to fixed temperature 26 and operate ac make it close'
             return my_tools.get_error_message(10000, m, {})
 
+    #设置定温。。。
     def set_fixed_temperature(self):
         self.__is_fixed_temperature = not self.__is_fixed_temperature
         if self.__is_fixed_temperature:
