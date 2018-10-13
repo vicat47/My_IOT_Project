@@ -5,12 +5,16 @@ from flask import Flask, request, render_template
 from entity.my_aircon import aircon
 from dao.temperature import get_current_temperature
 from controller.timer_mission import my_temperature_looper
+from controller.light_control_thread import human_sensor_control_light
+import dao.human_detect, entity.xiaomi_light
 import threading, datetime
 
 app = Flask(__name__)
 my_temperature_changer = None
 aircon_bedroom = aircon("bedroom")
-
+light = entity.xiaomi_light.light()
+human_detect = dao.human_detect.human_detect()
+human_controller = human_sensor_control_light(human_detect, light)
 
 '''
 t like this
@@ -31,7 +35,7 @@ t like this
 def home():
     if my_temperature_changer:
         t = my_temperature_changer.get_sensor_data()
-    aircon_data = aircon_bedroom.get_aircon_data()
+    aircon_data = aircon_bedroom.get_aircon_data
     t.update(aircon_data)
     return render_template("index.html", temperature=t)
 
@@ -50,5 +54,6 @@ if __name__ == '__main__':
     my_temperature_changer = my_temperature_looper()
     my_temperature_changer.set_aircon(aircon)
     my_temperature_changer.start_thread()
+    human_controller.start()
     # If want request from other hosts,shoud change param like this.
     app.run(host='0.0.0.0')
