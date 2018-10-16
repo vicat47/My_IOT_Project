@@ -15,3 +15,7 @@ def get_error_message(error_code, error_msg, data):
 def date_time_format(date_time):
     time = datetime.datetime.strftime(date_time,'%Y-%m-%d %H:%M:%S')
     return time
+
+def debug(DEBUG, str):
+    if DEBUG:
+        print(date_time_format(datetime.datetime.now()) + ":" + str)
