@@ -14,10 +14,10 @@ class light(object):
             "last_close" : ""
         }
         self.message = {
-            "power_on" : b'{"id":1,"method":"set_power","params":["on", "smooth", 500]}\r\n',
-            "power_off" : b'{"id":1,"method":"set_power","params":["off", "smooth", 500]}\r\n',
-            "get_status" : b'{"id":1,"method":"get_prop","params":["power"]}\r\n',
-            "toggle" : b'{"id":1,"method":"toggle","params":[]}\r\n'
+            "power_on" : self.open_light,
+            "power_off" : self.close_light,
+            "get_status" : self.get_status,
+            "toggle" : self.toggle
         }
         self.listen_socket = None
         self.scan_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -26,11 +26,24 @@ class light(object):
         self.message_interval = Thread(target=self.message_detection_loop)
         self.RUNNING = True
     
-    def send(self, send_message="get_status"):
+    def send(self, send_message="get_status", params = []):
         try:
-            self.listen_socket.send(self.message.get(send_message))
+            self.message.get(send_message)()
         except Exception as e:
             print("Unexpected error:", e)
+
+    def open_light(self):
+        if self.status["power"] is "off":
+            self.listen_socket.send(b'{"id":1,"method":"set_power","params":["on", "smooth", 500]}\r\n')
+
+    def close_light(self):
+        if self.status["power"] is "on":
+            self.listen_socket.send(b'{"id":1,"method":"set_power","params":["off", "smooth", 500]}\r\n')
+    def get_status(self):
+        self.listen_socket.send(b'{"id":1,"method":"get_prop","params":["power"]}\r\n')
+
+    def toggle(self):
+        self.listen_socket.send(b'{"id":1,"method":"toggle","params":[]}\r\n')
 
     def send_search_broadcast(self):
         '''
